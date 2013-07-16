@@ -104,6 +104,20 @@ Invokes `done` if `times` has been reached.
 
 Call `next` once an operation is complete, or pass it as the callback to an operation.
 
+underscore
+==========
+
+Integrate into underscore:
+
+```js
+var _ = require('underscore');
+var nicely = require('nicely');
+
+_.mixin(nicely._);
+
+// _.nicely === nicely
+```
+
 todo
 ====
 

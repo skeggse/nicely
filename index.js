@@ -47,4 +47,8 @@ nicely.directly = function directly(times, callback) {
   };
 };
 
+nicely._ = {
+  nicely: nicely
+};
+
 module.exports = nicely;
