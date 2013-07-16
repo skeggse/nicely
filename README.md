@@ -115,7 +115,7 @@ nicely.sequentially(fn)
 
 When you wish to execute a sequence of asynchronous operations, one at a time, and collect the results in an array, use `nicely.sequentially`.
 
-Unlike `nicely` and `nicely.directly`, `nicely.sequence` does not accept the a `times` parameter. Instead, it keeps track of the number of tasks to perform based on the number of times `queue` has been called.
+Unlike `nicely` and `nicely.directly`, `nicely.sequentially` does not accept a `times` parameter. Instead, all operations added with `queue` will complete--unless one fails--before `fn` is called.
 
 Similar to `nicely.directly(times, fn)`, this aggregates results in an array:
 
