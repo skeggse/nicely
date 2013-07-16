@@ -1,0 +1,28 @@
+{
+  "name": "nicely",
+  "description": "Minimalist Async Handler",
+  "version": "0.0.1",
+  "author": "Eli Skeggs <skeggse@gmail.com>",
+  "main": "./index",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skeggse/nicely.git"
+  },
+  "keywords": [
+    "nicely",
+    "async",
+    "asynchronous"
+  ],
+  "devDependencies": {
+    "mocha": "~1.12.0",
+    "expect.js": "~0.2.0",
+    "sinon": "~1.7.3"
+  },
+  "license": "UNLICENSE",
+  "engines": {
+    "node": "*"
+  }
+}
