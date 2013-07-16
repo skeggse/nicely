@@ -104,8 +104,11 @@ Invokes `done` if `times` has been reached.
 
 Call `next` once an operation is complete, or pass it as the callback to an operation.
 
+integration
+===========
+
 underscore
-==========
+----------
 
 Integrate into underscore:
 
@@ -116,6 +119,24 @@ var nicely = require('nicely');
 _.mixin(nicely._);
 
 // _.nicely === nicely
+```
+
+browser
+-------
+
+nicely is browser-ready, and mimics underscore's browser setup mechanism and `noConflict` function. nicely does not come in a minified for, but feel free to add it to your project as a vendor file and minify it together with your source. nicely is, after all, in the public domain, so no attribution comment is necessary.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>nicely in a browser</title>
+  </head>
+  <body>
+    <script src="nicely.js"></script>
+  </body>
+</html>
 ```
 
 todo
