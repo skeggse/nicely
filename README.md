@@ -23,7 +23,7 @@ $ git clone https://github.com/skeggse/nicely.git
 test
 ====
 
-*don't forget to* `npm install`
+*remember to* `npm install`!
 
 ```
 nicely$ mocha
@@ -37,7 +37,7 @@ api
 nicely(times, fn)
 -----------------
 
-The primary export, which collects results in an object, use as follows:
+The primary export, which collects results in an object. Use as follows:
 
 ```js
 var nicely = require('nicely');
@@ -55,8 +55,10 @@ doSomethingFailureProne('getName', next('name'));
 doSomethingFailureProne('getEmail', next('email'));
 doSomethingFailureProne('getPhone', next('phone'));
 
-// if all doSomethingFailureProne succeed: done(null, {...})
-// if >= 1 doSomethingFailureProne fail:   done(firstError)
+// if all doSomethingFailureProne succeed:
+//   "there was an error!", err
+// if >= 1 doSomethingFailureProne fail:
+//   "something good happened!", object
 ```
 
 #### next(field)
@@ -98,7 +100,7 @@ doSomethingFailureProne('getPhone', next);
 
 #### next(err, result)
 
-Invokes `done
+Invokes `done` if `times` has been reached.
 
 Call `next` once an operation is complete, or pass it as the callback to an operation.
 
