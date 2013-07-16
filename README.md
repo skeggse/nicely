@@ -1,7 +1,7 @@
 nicely
 ======
 
-A minimalist asynchronous handler, built upon `_.after` from [underscore][].
+A minimalist asynchronous handler, modeled after `_.after` from [underscore][].
 
 install
 =======
@@ -63,7 +63,7 @@ doSomethingFailureProne('getPhone', next('phone'));
 
 #### next(field)
 
-Returns `after(err, result)` with closure for `field`.
+Returns `after(err, result)` with a closure for `field`.
 
 Call `next` when providing an operation with a callback.
 
