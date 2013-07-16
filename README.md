@@ -121,7 +121,7 @@ _.mixin(nicely._);
 todo
 ====
 
-- [ ] add test to ensure `result` does not change with calls after `done()`
+- add test to ensure `result` does not change with calls after `done()`
 
 unlicense / public domain
 =========================
