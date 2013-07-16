@@ -18,6 +18,8 @@ var testOptions = {
   maximum: 5000
 };
 
+var passable = {};
+
 describe('intently', function() {
   var error = new Error('the failure');
   var responses = null, spy, opts;
@@ -30,7 +32,8 @@ describe('intently', function() {
 
   var run = function() {
     responses = Array.prototype.slice.call(arguments);
-    nicely.intently(opts || testOptions, spy, respond);
+    var begin = nicely.intently(opts || testOptions, spy);
+    begin(respond, passable);
   };
 
   afterEach(function() {
@@ -39,7 +42,8 @@ describe('intently', function() {
     opts = undefined;
   });
 
-  var respond = function(callback) {
+  var respond = function(p, callback) {
+    expect(p).to.equal(passable);
     if (!responses.length)
       throw new Error('out of responses');
     callback.apply(global, responses.shift());
@@ -72,46 +76,6 @@ describe('intently', function() {
   it('should complete on success', function() {
     run([null, greek]);
     checkHappy();
-  });
-
-  // check argument behavior
-  describe('arguments', function() {
-    var theArgs;
-
-    beforeEach(function() {
-      theArgs = [];
-      respond = function() {
-        var args = Array.prototype.slice.call(arguments);
-        var callback = args.pop();
-        theArgs.push(args);
-      };
-    });
-
-    var checkArgs = function() {
-      expect(theArgs.length).to.be.above(0);
-      for (var i = 0; i < theArgs.length; i++)
-        expect(theArgs[i]).to.eql(['a', 'b', 'c']);
-    };
-
-    it('should work with options', function() {
-      responses = [];
-      var backoff = nicely.intently(testOptions);
-      backoff(spy, respond, 'a', 'b', 'c');
-      checkArgs();
-    });
-
-    it('should work with options, callback', function() {
-      responses = [];
-      var backoff = nicely.intently(testOptions, spy);
-      backoff(respond, 'a', 'b', 'c');
-      checkArgs();
-    });
-
-    it('should work with options, callback, function', function() {
-      responses = [];
-      nicely.intently(testOptions, spy, respond, 'a', 'b', 'c');
-      checkArgs();
-    });
   });
 
   describe('times', function() {
@@ -218,13 +182,13 @@ describe('intently', function() {
     it('should be reusable', function() {
       responses = [[error], [null, greek]];
       var backoff = nicely.intently(testOptions, spy);
-      backoff(respond);
+      backoff(respond, passable);
       checkLonely(1);
       clock.tick(100);
       checkHappy();
       spy.reset();
       responses = [[error], [null, greek]];
-      backoff(respond);
+      backoff(respond, passable);
       checkLonely(1);
       clock.tick(100);
       checkHappy();
