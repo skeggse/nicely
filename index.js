@@ -4,6 +4,8 @@
   var previousDirectly = root.directly;
 
   var nicely = function nicely(times, callback) {
+    if (typeof callback !== 'function')
+      throw new TypeError('callback must be a function');
     // whether an error has occured
     var errored = false;
     // the result parameters
@@ -29,6 +31,8 @@
   };
 
   nicely.directly = function directly(times, callback) {
+    if (typeof callback !== 'function')
+      throw new TypeError('callback must be a function');
     // whether an error has occured
     var errored = false;
     // the result parameters
