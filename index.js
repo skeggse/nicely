@@ -1,6 +1,8 @@
 (function() {
   var root = this;
 
+  var specialMeaning = {};
+
   var previousDirectly = root.directly;
 
   var nicely = function nicely(times, callback) {
@@ -57,6 +59,39 @@
   };
 
   nicely.version = nicely.VERSION = '0.0.2';
+  // sequentially fits with the theme, but is hard to type right
+  nicely.sequentially =
+  nicely.sequence = function sequentially(callback) {
+    if (typeof callback !== 'function')
+      throw new TypeError('callback must be a function');
+    // the result parameters
+    var params = [];
+    // the task queue
+    var taskQueue = [];
+    // processes one task
+    var processTask = function(err, result) {
+      if (this !== specialMeaning) {
+        if (err)
+          return callback(err);
+        params.push(result);
+      }
+      var item = taskQueue.shift();
+      if (item)
+        item[0].apply(root, item[1]);
+      else
+        callback(null, params);
+    };
+    // begins queue processing on (start of) next tick
+    // should process.nextTick happen in processTask, for ever call?
+    process.nextTick(processTask.bind(specialMeaning));
+    // queues another function
+    return function queue(/*fn, args...*/) {
+      var args = Array.prototype.slice.call(arguments);
+      args.push(processTask);
+      taskQueue.push([args.shift(), args]);
+    };
+  };
+
 
   nicely.noConflict = function() {
     root.directly = previousDirectly;
