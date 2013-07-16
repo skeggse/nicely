@@ -34,6 +34,11 @@ nicely$ make test
 api
 ===
 
+- [nicely][api-nicely]
+- [nicely.directly][api-nicely.directly]
+- [nicely.sequentially][api-nicely.sequentially]
+- [nicely.intently][api-nicely.intently]
+
 nicely(times, fn)
 -----------------
 
@@ -282,7 +287,7 @@ todo
 
 - add test to ensure `result` does not change with calls after `done()`
 - move test's check functions to a unified file
-- intently code improvements (see [nicely.js][])
+- intently code improvements (see [lib/nicely.js][nicely.js])
   - add formal defer option tests
   - add formal argument handling tests
 
@@ -303,3 +308,7 @@ unlicense / public domain
 [npm]: https://npmjs.org/package/nicely "nicely on npm"
 [github]: https://github.com/skeggse/nicely "nicely on github"
 [nicely.js]: https://github.com/skeggse/nicely/blob/master/lib/nicely.js#L114 "lib/nicely.js"
+[api-nicely]: https://github.com/skeggse/nicely#nicelytimes-fn
+[api-nicely.directly]: https://github.com/skeggse/nicely#nicelydirectlytimes-fn
+[api-nicely.sequentially]: https://github.com/skeggse/nicely#nicelysequentiallyfn
+[api-nicely.intently]: https://github.com/skeggse/nicely#nicelyintentlyoptions-callback
