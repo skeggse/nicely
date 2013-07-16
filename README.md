@@ -143,6 +143,99 @@ queue(doSomethingFailureProne, 'getPhone');
 
 *note:* For those less inclined to type, feel free to use the `nicely.sequence` alias.
 
+nicely.intently(options, callback)
+----------------------------------
+
+When you wish to retry a task, use `nicely.intently`.
+
+This function only executes a single task, unlike the other functions in `nicely`, but is compatible with all three, and will return a configured, reusable `begin` function.
+
+The `options` parameter is currently required, and must be an `Object`, containing zero or more of the following properties:
+
+- `times` the number of times to retry before failing, or 0 to retry forever (default 0)
+- `backoff` the backoff for the delay (default 2.0)
+  - every retry causes `intently` to wait twice as long as the previous retry
+- `initial` the initial delay between task retries (default 100)
+- `maximum` the maximum delay between task retries (default 5000)
+- `defer` determines whether the task executes the instance `begin` is called (default `false`)
+
+*note:* All times are in milliseconds.
+
+#### Simple Scenario
+
+```js
+var nicely = require('nicely');
+
+var begin = nicely.intently({
+  times: 3, // default: 0
+  backoff: 2, // default
+  initial: 100, // default
+  maximum: 300, // default 5000
+  defer: true // default false
+}, function(err, array) {
+  if (err)
+    return console.log('error: ' + err.message);
+  console.log('woo!', array);
+});
+
+// begin(fn, args...) executes the specified task
+
+begin(function(message, callback) {
+  console.log(message);
+  callback(new Error(message));
+}, 'i tried!');
+
+console.log('begin trying');
+```
+
+This simple example will print out:
+
+```
+begin trying
+i tried!
+i tried!
+i tried!
+error: i tried!
+```
+
+#### Complex Scenario
+
+```js
+var nicely = require('nicely');
+
+var next = nicely.directly(4, function done(err, array) {
+  if (err)
+    return console.log('there was an error!', err);
+  console.log('something good happened!', array);
+});
+
+var begin = nicely.intently({
+  times: 3, // default: 0
+  backoff: 2, // default
+  initial: 100, // default
+  maximum: 300, // default 5000
+  defer: false // default
+}, next);
+
+// begin(fn, args...) executes the specified task
+
+begin(doSomethingFailureProne, 'getPass');
+begin(doSomethingFailureProne, 'getName');
+begin(doSomethingFailureProne, 'getEmail');
+begin(doSomethingFailureProne, 'getPhone');
+
+// if all doSomethingFailureProne succeed after at most thrice calls
+//   "something good happened!", array
+// if >= 1 doSomethingFailureProne fails three times
+//   "there was an error!", err
+```
+
+#### begin(fn, args...)
+
+Invokes `fn` with the provided `args` and retries if failure following the guidelines specified above.
+
+Similar to `queue(fn, args...)`, but executes `fn` immediately.
+
 integration
 ===========
 
