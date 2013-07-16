@@ -120,4 +120,4 @@ unlicense / public domain
 
 > For more information, please refer to <[http://unlicense.org/](http://unlicense.org/)>
 
-[underscore]: http://npmjs.org/package/underscore "underscore on npm"
+[underscore]: http://underscorejs.org "underscorejs.org"
