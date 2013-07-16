@@ -1,6 +1,6 @@
 {
   "name": "nicely",
-  "description": "Minimalist Async Handler",
+  "description": "A minimalist asynchronous handler, modeled after _.after from underscore.",
   "version": "0.0.1",
   "author": "Eli Skeggs <skeggse@gmail.com>",
   "main": "./index",
@@ -11,6 +11,7 @@
     "type": "git",
     "url": "https://github.com/skeggse/nicely.git"
   },
+  "bugs": "https://github.com/skeggse/nicely/issues",
   "keywords": [
     "nicely",
     "async",
@@ -21,7 +22,12 @@
     "expect.js": "~0.2.0",
     "sinon": "~1.7.3"
   },
-  "license": "UNLICENSE",
+  "licenses": [
+    {
+      "type": "unlicense",
+      "url": "https://github.com/skeggse/nicely/blob/master/UNLICENSE"
+    }
+  ],
   "engines": {
     "node": "*"
   }
