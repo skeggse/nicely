@@ -58,7 +58,7 @@ describe('directly', function() {
 
   it('should ignore the data on error', function() {
     for (var i = 1; i < greek.length; i++)
-      next(null, greek[1]);
+      next(null, greek[i]);
     next(error);
     checkSad();
   });
