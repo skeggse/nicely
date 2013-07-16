@@ -58,9 +58,9 @@ doSomethingFailureProne('getEmail', next('email'));
 doSomethingFailureProne('getPhone', next('phone'));
 
 // if all doSomethingFailureProne succeed:
-//   "there was an error!", err
-// if >= 1 doSomethingFailureProne fail:
 //   "something good happened!", object
+// if >= 1 doSomethingFailureProne fail:
+//   "there was an error!", err
 ```
 
 #### next(field)
@@ -99,9 +99,9 @@ doSomethingFailureProne('getEmail', next);
 doSomethingFailureProne('getPhone', next);
 
 // if all doSomethingFailureProne succeed:
-//   "there was an error!", err
-// if >= 1 doSomethingFailureProne fail:
 //   "something good happened!", array
+// if >= 1 doSomethingFailureProne fail:
+//   "there was an error!", err
 ```
 
 #### next(err, result)
@@ -136,9 +136,9 @@ queue(doSomethingFailureProne, 'getEmail');
 queue(doSomethingFailureProne, 'getPhone');
 
 // if all doSomethingFailureProne succeed:
-//   "there was an error!", err
-// if >= 1 doSomethingFailureProne fail:
 //   "something good happened!", array
+// if >= 1 doSomethingFailureProne fail:
+//   "there was an error!", err
 ```
 
 *note:* For those less inclined to type, feel free to use the `nicely.sequence` alias.
