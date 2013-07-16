@@ -9,14 +9,14 @@ install
 [npm][]
 -------
 
-```
+```sh
 $ npm install nicely
 ```
 
 [github][]
 ----------
 
-```
+```sh
 $ git clone https://github.com/skeggse/nicely.git
 ```
 
@@ -25,7 +25,7 @@ test
 
 *remember to* `npm install`!
 
-```
+```sh
 nicely$ mocha
 nicely$ npm test
 nicely$ make test
