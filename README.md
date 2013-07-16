@@ -37,6 +37,8 @@ api
 nicely(times, fn)
 -----------------
 
+When you wish to collect the results of a bunch of asynchronous operations in an object, use `nicely`.
+
 The primary export, which collects results in an object. Use as follows:
 
 ```js
@@ -74,7 +76,9 @@ Invokes `done` if `times` has been reached.
 Call `after` once an operation is complete (or let the operation do the dirty work).
 
 nicely.directly(times, fn)
-------------------------
+--------------------------
+
+When you wish to collect the results of a bunch of asynchronous operations in an array, in-order, use `directly`.
 
 A little simpler than `nicely(times, fn)`, this collects results in an array:
 
@@ -94,8 +98,10 @@ doSomethingFailureProne('getName', next);
 doSomethingFailureProne('getEmail', next);
 doSomethingFailureProne('getPhone', next);
 
-// if all doSomethingFailureProne succeed: done(null, [...])
-// if >= 1 doSomethingFailureProne fail:   done(firstError)
+// if all doSomethingFailureProne succeed:
+//   "there was an error!", err
+// if >= 1 doSomethingFailureProne fail:
+//   "something good happened!", array
 ```
 
 #### next(err, result)
@@ -103,6 +109,39 @@ doSomethingFailureProne('getPhone', next);
 Invokes `done` if `times` has been reached.
 
 Call `next` once an operation is complete, or pass it as the callback to an operation.
+
+nicely.sequentially(fn)
+-----------------------
+
+When you wish to execute a sequence of asynchronous operations, one at a time, and collect the results in an array, use `nicely.sequentially`.
+
+Unlike `nicely` and `nicely.directly`, `nicely.sequence` does not accept the a `times` parameter. Instead, it keeps track of the number of tasks to perform based on the number of times `queue` has been called.
+
+Similar to `nicely.directly(times, fn)`, this aggregates results in an array:
+
+```js
+var nicely = require('nicely');
+
+var queue = nicely.sequentially(function done(err, array) {
+  if (err)
+    return console.log('there was an error!', err);
+  console.log('something good happened!', array);
+});
+
+// queue(fn, args...) queues the specified task for execution
+
+queue(doSomethingFailureProne, 'getPass');
+queue(doSomethingFailureProne, 'getName');
+queue(doSomethingFailureProne, 'getEmail');
+queue(doSomethingFailureProne, 'getPhone');
+
+// if all doSomethingFailureProne succeed:
+//   "there was an error!", err
+// if >= 1 doSomethingFailureProne fail:
+//   "something good happened!", array
+```
+
+*note:* For the less inclined to type, feel free to use the `nicely.sequence` alias.
 
 integration
 ===========
@@ -143,6 +182,7 @@ todo
 ====
 
 - add test to ensure `result` does not change with calls after `done()`
+- move test's check functions to a unified file
 
 unlicense / public domain
 =========================
