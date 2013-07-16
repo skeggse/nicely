@@ -302,4 +302,4 @@ unlicense / public domain
 [underscore]: http://underscorejs.org "underscorejs.org"
 [npm]: https://npmjs.org/package/nicely "nicely on npm"
 [github]: https://github.com/skeggse/nicely "nicely on github"
-[nicely.js]: https://github.com/skeggse/nicely/blob/master/lib/nicely.js "lib/nicely.js"
+[nicely.js]: https://github.com/skeggse/nicely/blob/master/lib/nicely.js#L114 "lib/nicely.js"
