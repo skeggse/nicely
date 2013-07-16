@@ -10,14 +10,14 @@ install
 -------
 
 ```
-npm install nicely
+$ npm install nicely
 ```
 
 [github][]
 ----------
 
 ```
-git clone https://github.com/skeggse/nicely.git
+$ git clone https://github.com/skeggse/nicely.git
 ```
 
 test
@@ -121,3 +121,5 @@ unlicense / public domain
 > For more information, please refer to <[http://unlicense.org/](http://unlicense.org/)>
 
 [underscore]: http://underscorejs.org "underscorejs.org"
+[npm]: http://npmjs.org/package/nicely "nicely on npm"
+[github]: https://github.com/skeggse/nicely "nicely on github"
