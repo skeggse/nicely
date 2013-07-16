@@ -149,21 +149,21 @@ Call `queue` to queue the operation for execution.
 
 *note:* For those less inclined to type, feel free to use the `nicely.sequence` alias.
 
-nicely.intently(options, callback)
+nicely.intently([options], callback)
 ----------------------------------
 
 When you wish to retry a task, use `nicely.intently`.
 
 This function only executes a single task, unlike the other functions in `nicely`, but is compatible with all three, and will return a configured, reusable `begin` function.
 
-The `options` parameter is currently required, and must be an `Object`, containing zero or more of the following properties:
+The `options` parameter is optional, but must be an `Object` if specified, containing zero or more of the following properties:
 
 - `times` the number of times to retry before failing, or 0 to retry forever (default 0)
 - `backoff` the backoff for the delay (default 2.0)
   - every retry causes `intently` to wait twice as long as the previous retry
 - `initial` the initial delay between task retries (default 100)
 - `maximum` the maximum delay between task retries (default 5000)
-- `defer` determines whether the task executes the instance `begin` is called (default `false`)
+- `defer` determines whether the task executes the instant `begin` is called (default `false`)
 
 *note:* All times are in milliseconds.
 
@@ -284,6 +284,7 @@ todo
 - move test's check functions to a unified file
 - intently code improvements (see [nicely.js][])
   - add formal defer option tests
+  - add formal argument handling tests
 
 unlicense / public domain
 =========================
