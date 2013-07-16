@@ -31,6 +31,10 @@ describe('directly', function() {
     expect(spy.args[0][1]).to.eql(greek);
   };
 
+  var checkLonely = function() {
+    expect(spy.called).to.not.be.ok();
+  };
+
   var checkSad = function() {
     expect(spy.called).to.be.ok();
     expect(spy.calledOnce).to.be.ok();
@@ -62,7 +66,7 @@ describe('directly', function() {
   it('should do nothing with few calls', function() {
     for (var i = 1; i < greek.length; i++)
       next(null, greek[i]);
-    expect(spy.called).to.not.be.ok();
+    checkLonely();
   });
 
   it('should call back once with many calls', function() {

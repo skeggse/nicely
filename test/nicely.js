@@ -27,6 +27,10 @@ describe('nicely', function() {
     expect(spy.args[0][1]).to.eql(greek);
   };
 
+  var checkLonely = function() {
+    expect(spy.called).to.not.be.ok();
+  };
+
   var checkSad = function() {
     expect(spy.called).to.be.ok();
     expect(spy.calledOnce).to.be.ok();
@@ -62,7 +66,7 @@ describe('nicely', function() {
     for (var key in greek)
       if (key !== 'eta')
         next(key)(null, greek[key]);
-    expect(spy.called).to.not.be.ok();
+    checkLonely();
   });
 
   it('should call back once with many calls', function() {
