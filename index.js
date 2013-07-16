@@ -58,7 +58,6 @@
     };
   };
 
-  nicely.version = nicely.VERSION = '0.0.2';
   // sequentially fits with the theme, but is hard to type right
   nicely.sequentially =
   nicely.sequence = function sequentially(callback) {
@@ -92,6 +91,7 @@
     };
   };
 
+  nicely.version = nicely.VERSION = '0.0.4';
 
   nicely.noConflict = function() {
     root.directly = previousDirectly;
