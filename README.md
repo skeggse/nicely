@@ -141,6 +141,12 @@ queue(doSomethingFailureProne, 'getPhone');
 //   "there was an error!", err
 ```
 
+#### queue(fn, args...)
+
+Invokes `fn` after all previous queued functions succeed.
+
+Call `queue` to queue the operation for execution.
+
 *note:* For those less inclined to type, feel free to use the `nicely.sequence` alias.
 
 nicely.intently(options, callback)
