@@ -141,7 +141,7 @@ queue(doSomethingFailureProne, 'getPhone');
 //   "something good happened!", array
 ```
 
-*note:* For the less inclined to type, feel free to use the `nicely.sequence` alias.
+*note:* For those less inclined to type, feel free to use the `nicely.sequence` alias.
 
 integration
 ===========
