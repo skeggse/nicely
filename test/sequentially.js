@@ -80,7 +80,6 @@ describe('sequentially', function() {
   });
 
   it('should allow updates after tick', function(done) {
-    debugger;
     start(checkHappy(done, [true, 'nicely']));
     queue(function adder(callback) {
       queue(stubby, 'nicely');
