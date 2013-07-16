@@ -282,6 +282,8 @@ todo
 
 - add test to ensure `result` does not change with calls after `done()`
 - move test's check functions to a unified file
+- intently code improvements (see [nicely.js][])
+  - add formal defer option tests
 
 unlicense / public domain
 =========================
@@ -299,3 +301,4 @@ unlicense / public domain
 [underscore]: http://underscorejs.org "underscorejs.org"
 [npm]: https://npmjs.org/package/nicely "nicely on npm"
 [github]: https://github.com/skeggse/nicely "nicely on github"
+[nicely.js]: https://github.com/skeggse/nicely/blob/master/lib/nicely.js "lib/nicely.js"
