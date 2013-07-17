@@ -35,10 +35,10 @@ describe('nicely', function() {
     expect(spy.called).to.not.be.ok();
   };
 
-  var checkSad = function() {
+  var checkSad = function(field) {
     baseCheck();
     expect(spy.args[0][0]).to.equal(error);
-      expect(spy.args[0][1]).to.not.be.ok();
+    expect(spy.args[0][1]).to.equal(field);
   };
 
   it('should call back with correct results', function() {
@@ -48,9 +48,10 @@ describe('nicely', function() {
   });
 
   it('should pass the error', function() {
+    // may fail, greek not necessarily in-order, so 'alpha' may not be first
     for (var key in greek)
       next(key)(error);
-    checkSad();
+    checkSad('alpha');
   });
 
   it('should ignore the data on error', function() {
@@ -60,7 +61,7 @@ describe('nicely', function() {
       else
         next(key)(null, greek[key]);
     }
-    checkSad();
+    checkSad('eta');
   });
 
   it('should do nothing with few calls', function() {

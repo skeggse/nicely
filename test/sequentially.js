@@ -45,11 +45,11 @@ describe('sequentially', function() {
     };
   };
 
-  var checkSad = function(done) {
+  var checkSad = function(done, params) {
     return function() {
       baseCheck();
       expect(spy.args[0][0]).to.equal(error);
-        expect(spy.args[0][1]).to.not.be.ok();
+      expect(spy.args[0][1]).to.eql(params);
       done();
     };
   };
@@ -68,13 +68,13 @@ describe('sequentially', function() {
   });
 
   it('should pass the error', function(done) {
-    start(checkSad(done));
+    start(checkSad(done, []));
     for (var i = 0; i < greek.length; i++)
       queue(stubby, null);
   });
 
   it('should ignore the data on error', function(done) {
-    start(checkSad(done));
+    start(checkSad(done, greek.slice(1)));
     for (var i = 1; i < greek.length; i++)
       queue(stubby, greek[i]);
     queue(stubby, null);

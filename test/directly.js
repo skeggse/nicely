@@ -39,11 +39,10 @@ describe('directly', function() {
     expect(spy.called).to.not.be.ok();
   };
 
-  var checkSad = function() {
+  var checkSad = function(index) {
     baseCheck();
     expect(spy.args[0][0]).to.equal(error);
-    if (spy.args[0].length === 2)
-      expect(spy.args[0][1]).to.not.be.ok();
+    expect(spy.args[0][1]).to.equal(index);
   };
 
   it('should call back with correct results', function() {
@@ -55,14 +54,14 @@ describe('directly', function() {
   it('should pass the error', function() {
     for (var i = 0; i < greek.length; i++)
       next(error);
-    checkSad();
+    checkSad(0);
   });
 
   it('should ignore the data on error', function() {
     for (var i = 1; i < greek.length; i++)
       next(null, greek[i]);
     next(error);
-    checkSad();
+    checkSad(7);
   });
 
   it('should do nothing with few calls', function() {
