@@ -34,10 +34,11 @@ nicely$ make test
 api
 ===
 
-- [nicely][api-nicely]
-- [nicely.directly][api-nicely.directly]
-- [nicely.sequentially][api-nicely.sequentially]
-- [nicely.intently][api-nicely.intently]
+- [nicely(times, fn)][api-nicely]
+- [nicely.directly(times, fn)][api-nicely.directly]
+- [nicely.sequentially(fn)][api-nicely.sequentially] (alias `nicely.sequence`)
+- [nicely.intently([options], callback)][api-nicely.intently]
+- [nicely.additionally(prefix, callback)][api-nicely.additionally] (alias `nicely.also`)
 
 nicely(times, fn)
 -----------------
@@ -371,7 +372,8 @@ unlicense / public domain
 [npm]: https://npmjs.org/package/nicely "nicely on npm"
 [github]: https://github.com/skeggse/nicely "nicely on github"
 [nicely.js]: https://github.com/skeggse/nicely/blob/master/lib/nicely.js#L114 "lib/nicely.js"
-[api-nicely]: https://github.com/skeggse/nicely#nicelytimes-fn
-[api-nicely.directly]: https://github.com/skeggse/nicely#nicelydirectlytimes-fn
-[api-nicely.sequentially]: https://github.com/skeggse/nicely#nicelysequentiallyfn
-[api-nicely.intently]: https://github.com/skeggse/nicely#nicelyintentlyoptions-callback
+[api-nicely]: https://github.com/skeggse/nicely#nicelytimes-fn "nicely"
+[api-nicely.directly]: https://github.com/skeggse/nicely#nicelydirectlytimes-fn "nicely.directly"
+[api-nicely.sequentially]: https://github.com/skeggse/nicely#nicelysequentiallyfn "nicely.sequentially"
+[api-nicely.intently]: https://github.com/skeggse/nicely#nicelyintentlyoptions-callback "nicely.intently"
+[api-nicely.additionally]: https://github.com/skeggse/nicely#nicelyadditionallyprefix-callback "nicely.additionally"
