@@ -80,6 +80,14 @@ Invokes `done` if `times` has been reached.
 
 Call `after` once an operation is complete (or let the operation do the dirty work).
 
+#### done(err, result)
+
+User-defined function which should accept `err` and `result`.
+
+When an error occurs, `done` gets called with two parameters: `err` and `field` (where `field` represents the task that failed).
+
+When everything succeeds, `done` gets called with two parameters: null and `result`.
+
 nicely.directly(times, fn)
 --------------------------
 
@@ -114,6 +122,14 @@ doSomethingFailureProne('getPhone', next);
 Invokes `done` if `times` has been reached.
 
 Call `next` once an operation is complete, or pass it as the callback to an operation.
+
+#### done(err, result)
+
+User-defined function which should accept `err` and `result`.
+
+When an error occurs, `done` gets called with two parameters: `err` and `index` (where `index` represents the task that failed).
+
+When everything succeeds, `done` gets called with two parameters: null and `result`.
 
 nicely.sequentially(fn)
 -----------------------
@@ -154,6 +170,14 @@ Call `queue` to queue the operation for execution.
 
 *note:* For those less inclined to type, feel free to use the `nicely.sequence` alias.
 
+#### done(err, results)
+
+User-defined function which should accept `err` and `results`.
+
+When an error occurs, `done` gets called with two parameters: `err` and `results`, where `results` contains an array of results up until failure.
+
+When everything succeeds, `done` gets called with two parameters: null and `results`.
+
 nicely.intently([options], callback)
 ----------------------------------
 
@@ -183,10 +207,10 @@ var begin = nicely.intently({
   initial: 100, // default
   maximum: 300, // default 5000
   defer: true // default false
-}, function(err, array) {
+}, function(err, result) {
   if (err)
     return console.log('error: ' + err.message);
-  console.log('woo!', array);
+  console.log('woo!', result);
 });
 
 // begin(fn, args...) executes the specified task
@@ -214,10 +238,10 @@ error: i tried!
 ```js
 var nicely = require('nicely');
 
-var next = nicely.directly(4, function done(err, array) {
+var next = nicely.directly(4, function done(err, result) {
   if (err)
     return console.log('there was an error!', err);
-  console.log('something good happened!', array);
+  console.log('something good happened!', result);
 });
 
 var begin = nicely.intently({
@@ -236,7 +260,7 @@ begin(doSomethingFailureProne, 'getEmail');
 begin(doSomethingFailureProne, 'getPhone');
 
 // if all doSomethingFailureProne succeed after at most thrice calls
-//   "something good happened!", array
+//   "something good happened!", result
 // if >= 1 doSomethingFailureProne fails three times
 //   "there was an error!", err
 ```
@@ -246,6 +270,14 @@ begin(doSomethingFailureProne, 'getPhone');
 Invokes `fn` with the provided `args` and retries if failure following the guidelines specified above.
 
 Similar to `queue(fn, args...)`, but executes `fn` immediately.
+
+#### done(err, result)
+
+User-defined function which should accept `err` and `result`.
+
+When an error occurs, `done` gets called with two parameters: `err` and `index` (where `index` represents the task that failed).
+
+When everything succeeds, `done` gets called with two parameters: null and `result`.
 
 integration
 ===========
@@ -290,6 +322,11 @@ todo
 - intently code improvements (see [lib/nicely.js][nicely.js])
   - add formal defer option tests
   - add formal argument handling tests
+
+#### questions
+
+- could make `nicely` and `nicely.directly` optionally take `times`, and infer from calls to `next`
+  - would need to callback only after tick, however, in case user callbacks are synchronous
 
 unlicense / public domain
 =========================
