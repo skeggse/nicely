@@ -279,6 +279,32 @@ When an error occurs, `done` gets called with two parameters: `err` and `index` 
 
 When everything succeeds, `done` gets called with two parameters: null and `result`.
 
+nicely.additionally(prefix, callback)
+-------------------------------------
+
+A very lightweight function which prefixes the error message with `prefix`.
+
+```js
+var doSomething = function(callback) {
+  callback(new Error("it didn't work"));
+};
+
+var alter = nicely.additionally('i hope ', function(err) {
+  // logs "i hope it didn't work"
+  console.log(err.message);
+});
+
+doSomething(alter);
+```
+
+*note:* you can, and perhaps should, use the `nicely.also` alias
+
+#### alter(err, args...)
+
+Just modifies the error message using the `prefix` as defined above.
+
+You should pass this to your asynchronous function as a middleman.
+
 integration
 ===========
 
