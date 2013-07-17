@@ -22,11 +22,15 @@ describe('sequentially', function() {
     queue = nicely.sequentially(spy = sinon.spy(done));
   };
 
+  var baseCheck = function() {
+    expect(spy.called).to.be.ok();
+    expect(spy.calledOnce).to.be.ok();
+    expect(spy.args[0]).to.have.length(2);
+  };
+
   var checkHappy = function(done, object) {
     return function() {
-      expect(spy.called).to.be.ok();
-      expect(spy.calledOnce).to.be.ok();
-      expect(spy.args[0]).to.have.length(2);
+      baseCheck();
       expect(spy.args[0][0]).to.not.be.an(Error);
       expect(spy.args[0][0]).to.not.be.ok();
       expect(spy.args[0][1]).to.eql(object || greek);
@@ -43,11 +47,8 @@ describe('sequentially', function() {
 
   var checkSad = function(done) {
     return function() {
-      expect(spy.called).to.be.ok();
-      expect(spy.calledOnce).to.be.ok();
-      expect(spy.args[0].length).to.be.within(1, 2);
+      baseCheck();
       expect(spy.args[0][0]).to.equal(error);
-      if (spy.args[0].length === 2)
         expect(spy.args[0][1]).to.not.be.ok();
       done();
     };
