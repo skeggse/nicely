@@ -299,7 +299,7 @@ _.mixin(nicely._);
 browser
 -------
 
-nicely is browser-ready, and mimics underscore's browser setup mechanism and `noConflict` function. nicely does not come in a minified for, but feel free to add it to your project as a vendor file and minify it together with your source. nicely is, after all, in the public domain, so no attribution comment is necessary.
+nicely is browser-ready, and mimics underscore's browser setup mechanism and `noConflict` function. nicely does not come in a minified form, but feel free to add it to your project as a vendor file and minify it together with your source. nicely is, after all, in the public domain, so no attribution comment is necessary.
 
 ```html
 <!DOCTYPE html>
