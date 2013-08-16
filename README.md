@@ -1,7 +1,7 @@
 nicely
 ======
 
-A minimalist asynchronous handler, modeled after `_.after` from [underscore][].
+a minimalist asynchronous handler, modeled after `_.after` from [underscore][].
 
 install
 =======
