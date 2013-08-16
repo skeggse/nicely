@@ -15,7 +15,8 @@
   "keywords": [
     "nicely",
     "async",
-    "asynchronous"
+    "asynchronous",
+    "callback"
   ],
   "devDependencies": {
     "mocha": "~1.12.0",
