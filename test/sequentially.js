@@ -84,4 +84,31 @@ describe('sequentially', function() {
       callback(null, true);
     });
   });
+
+  it('should catch thrown errors', function(done) {
+    start(checkSad(done, 'failure'));
+    queue('alpha', function(callback) {
+      callback(null, true);
+    });
+    queue('failure', function(callback) {
+      throw error;
+    });
+  });
+
+  it('should catch throw errors and ignore if already called back', function(done) {
+    var calls = 0;
+    start(checkSad(function() {
+      if (calls++) {
+        return done(new Error('called back too many times'));
+      }
+      process.nextTick(done);
+    }, 'failure'));
+    queue('alpha', function(callback) {
+      callback(null, true);
+    });
+    queue('failure', function(callback) {
+      callback(error);
+      throw err;
+    });
+  });
 });
