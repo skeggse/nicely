@@ -138,6 +138,8 @@ When you wish to execute a sequence of asynchronous operations, one at a time, a
 
 Unlike `nicely` and `nicely.directly`, `nicely.sequentially` does not accept a `times` parameter. Instead, all operations added with `queue` will complete--unless one fails--before `fn` is called.
 
+As an added bonus, both `fn` and the queued tasks will have the `this` object set to the results object.
+
 Similar to `nicely(times, fn)`, this aggregates results in an object:
 
 ```js
