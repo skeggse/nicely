@@ -88,6 +88,49 @@ When an error occurs, `done` gets called with two parameters: `err` and `field` 
 
 When everything succeeds, `done` gets called with two parameters: null and `result`.
 
+nicely.simply(times, fn)
+------------------------
+
+When you wish to handle errors of a bunch of asynchronous operations, but don't care about their results, use `simply`.
+
+Example:
+
+```js
+var nicely = require('nicely');
+
+var next = nicely(4, function done(err) {
+  if (err)
+    return console.log('there was an error!', err);
+  console.log('something good happened!');
+});
+
+// next(err) alerts nicely of the completion or failure of an operation
+
+doSomethingFailureProne('getPass', next);
+doSomethingFailureProne('getName', next);
+doSomethingFailureProne('getEmail', next);
+doSomethingFailureProne('getPhone', next);
+
+// if all doSomethingFailureProne succeed:
+//   "something good happened!"
+// if >= 1 doSomethingFailureProne fail:
+//   "there was an error!", err
+```
+
+#### next(err)
+
+Invokes `done` if `times` has been reached or if `err` is truthy.
+
+Call `next` once an operation is complete, or pass it as the callback to an operation.
+
+#### done(err)
+
+User-defined function which should accept `err`.
+
+When an error occurs, `done` gets called with `err`.
+
+When everything succeeds, `done` gets called with null.
+
 nicely.directly(times, fn)
 --------------------------
 
