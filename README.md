@@ -135,49 +135,49 @@ When everything succeeds, `done` gets called with two parameters: null and `resu
 nicely.sequentially(fn)
 -----------------------
 
-When you wish to execute a sequence of asynchronous operations, one at a time, and collect the results in an array, use `nicely.sequentially`.
+When you wish to execute a sequence of asynchronous operations, one at a time, and collect the results in an object, use `nicely.sequentially`.
 
 Unlike `nicely` and `nicely.directly`, `nicely.sequentially` does not accept a `times` parameter. Instead, all operations added with `queue` will complete--unless one fails--before `fn` is called.
 
-Similar to `nicely.directly(times, fn)`, this aggregates results in an array:
+Similar to `nicely(times, fn)`, this aggregates results in an object:
 
 ```js
 var nicely = require('nicely');
 
-var queue = nicely.sequentially(function done(err, array) {
+var queue = nicely.sequentially(function done(err, object) {
   if (err)
     return console.log('there was an error!', err);
-  console.log('something good happened!', array);
+  console.log('something good happened!', object);
 });
 
-// queue(fn, args...) queues the specified task for execution
+// queue(name, fn, args...) queues the specified task for execution
 
-queue(doSomethingFailureProne, 'getPass');
-queue(doSomethingFailureProne, 'getName');
-queue(doSomethingFailureProne, 'getEmail');
-queue(doSomethingFailureProne, 'getPhone');
+queue('password', doSomethingFailureProne, 'getPass');
+queue('name', doSomethingFailureProne, 'getName');
+queue('email', doSomethingFailureProne, 'getEmail');
+queue('phone', doSomethingFailureProne, 'getPhone');
 
 // if all doSomethingFailureProne succeed:
-//   "something good happened!", array
+//   "something good happened!", object
 // if >= 1 doSomethingFailureProne fail:
 //   "there was an error!", err
 ```
 
-#### queue(fn, args...)
+#### queue(name, fn, args...)
 
-Invokes `fn` after all previous queued functions succeed.
+Invokes `fn` after all previously queued functions succeed. The `name` parameter is used both for error handling, and for aggregation.
 
 Call `queue` to queue the operation for execution.
-
-*note:* For those less inclined to type, feel free to use the `nicely.sequence` alias.
 
 #### done(err, results)
 
 User-defined function which should accept `err` and `results`.
 
-When an error occurs, `done` gets called with two parameters: `err` and `results`, where `results` contains an array of results up until failure.
+When an error occurs, `done` gets called with two parameters: `err` and `name`, where `name` is the name of the operation that failed.
 
 When everything succeeds, `done` gets called with two parameters: null and `results`.
+
+*note:* For those less inclined to type, feel free to use the `nicely.sequence` alias.
 
 nicely.intently([options], callback)
 ----------------------------------
@@ -270,7 +270,7 @@ begin(doSomethingFailureProne, 'getPhone');
 
 Invokes `fn` with the provided `args` and retries if failure following the guidelines specified above.
 
-Similar to `queue(fn, args...)`, but executes `fn` immediately.
+Similar to `queue(name, fn, args...)`, but executes `fn` immediately.
 
 #### done(err, result)
 

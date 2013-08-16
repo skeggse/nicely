@@ -3,16 +3,13 @@ var nicely = require('..');
 var sinon = require('sinon');
 var expect = require('expect.js');
 
-var greek = [
-  'alpha',
-  'beta',
-  'gamma',
-  'delta',
-  'epsilon',
-  'zeta',
-  'eta',
-  'theta'
-];
+var greek = {
+  alpha: 'beta',
+  gamma: 'delta',
+  epsilon: 'zeta',
+  eta: 'theta'
+};
+var keys = Object.keys(greek);
 
 describe('sequentially', function() {
   var error = new Error('the failure');
@@ -63,27 +60,27 @@ describe('sequentially', function() {
 
   it('should call back with correct results', function(done) {
     start(checkHappy(done));
-    for (var i = 0; i < greek.length; i++)
-      queue(stubby, greek[i]);
+    for (var key in greek)
+      queue(key, stubby, greek[key]);
   });
 
   it('should pass the error', function(done) {
-    start(checkSad(done, []));
-    for (var i = 0; i < greek.length; i++)
-      queue(stubby, null);
+    start(checkSad(done, keys[0]));
+    for (var i = 0; i < keys.length; i++)
+      queue(keys[i], stubby, null);
   });
 
   it('should ignore the data on error', function(done) {
-    start(checkSad(done, greek.slice(1)));
-    for (var i = 1; i < greek.length; i++)
-      queue(stubby, greek[i]);
-    queue(stubby, null);
+    start(checkSad(done, 'errored'));
+    for (var i = 1; i < keys.length; i++)
+      queue(keys[i], stubby, greek[keys[i]]);
+    queue('errored', stubby, null);
   });
 
   it('should allow updates after tick', function(done) {
-    start(checkHappy(done, [true, 'nicely']));
-    queue(function adder(callback) {
-      queue(stubby, 'nicely');
+    start(checkHappy(done, {alpha: true, beta: 'nicely'}));
+    queue('alpha', function adder(callback) {
+      queue('beta', stubby, 'nicely');
       callback(null, true);
     });
   });
