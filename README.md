@@ -322,11 +322,14 @@ todo
 - intently code improvements (see [lib/nicely.js][nicely.js])
   - add formal defer option tests
   - add formal argument handling tests
+- ponder whether to only allow queue-style function additions instead of returning a callback
+  - this would allow `nicely.directly` to aggregate sequentially
 
 #### questions
 
 - could make `nicely` and `nicely.directly` optionally take `times`, and infer from calls to `next`
   - would need to callback only after tick, however, in case user callbacks are synchronous
+- for performance, would detecting and simplifying double-bindings work?
 
 unlicense / public domain
 =========================
