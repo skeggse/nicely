@@ -35,6 +35,7 @@ api
 ===
 
 - [nicely(times, fn)][api-nicely]
+- [nicely.simply(times, fn)][api-nicely.simply]
 - [nicely.directly(times, fn)][api-nicely.directly]
 - [nicely.sequentially(fn)][api-nicely.sequentially] (alias `nicely.sequence`)
 - [nicely.intently([options], callback)][api-nicely.intently]
@@ -394,6 +395,7 @@ unlicense / public domain
 [github]: https://github.com/skeggse/nicely "nicely on github"
 [nicely.js]: https://github.com/skeggse/nicely/blob/master/lib/nicely.js#L114 "lib/nicely.js"
 [api-nicely]: https://github.com/skeggse/nicely#nicelytimes-fn "nicely"
+[api-nicely.simply]: https://github.com/skeggse/nicely#nicelysimplytimes-fn
 [api-nicely.directly]: https://github.com/skeggse/nicely#nicelydirectlytimes-fn "nicely.directly"
 [api-nicely.sequentially]: https://github.com/skeggse/nicely#nicelysequentiallyfn "nicely.sequentially"
 [api-nicely.intently]: https://github.com/skeggse/nicely#nicelyintentlyoptions-callback "nicely.intently"
