@@ -1,6 +1,8 @@
 nicely
 ======
 
+[![Build Status](https://travis-ci.org/skeggse/nicely.png)](https://travis-ci.org/skeggse/nicely)
+
 a minimalist asynchronous handler, inspired by `_.after` from [underscore][].
 
 install
