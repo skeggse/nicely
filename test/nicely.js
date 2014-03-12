@@ -15,7 +15,7 @@ describe('nicely', function() {
   var next, spy;
 
   beforeEach(function() {
-    next = nicely(spy = sinon.spy());
+    next = nicely(4, spy = sinon.spy());
   });
 
   var baseCheck = function() {
@@ -24,76 +24,59 @@ describe('nicely', function() {
     expect(spy.args[0]).to.have.length(2);
   };
 
-  var checkHappy = function(done) {
-    process.nextTick(function() {
-      baseCheck();
-      expect(spy.args[0][0]).to.not.be.an(Error);
-      expect(spy.args[0][0]).to.not.be.ok();
-      expect(spy.args[0][1]).to.eql(greek);
-      done();
-    });
+  var checkHappy = function() {
+    baseCheck();
+    expect(spy.args[0][0]).to.not.be.an(Error);
+    expect(spy.args[0][0]).to.not.be.ok();
+    expect(spy.args[0][1]).to.eql(greek);
   };
 
-  var checkLonely = function(done) {
-    if (done) {
-      process.nextTick(function() {
-        expect(spy.called).to.not.be.ok();
-        done();
-      });
-    } else {
-      expect(spy.called).to.not.be.ok();
-    }
+  var checkLonely = function() {
+    expect(spy.called).to.not.be.ok();
   };
 
-  var checkSad = function(field, done) {
-    process.nextTick(function() {
-      baseCheck();
-      expect(spy.args[0][0]).to.equal(error);
-      expect(spy.args[0][1]).to.equal(field);
-      done();
-    });
+  var checkSad = function(field) {
+    baseCheck();
+    expect(spy.args[0][0]).to.equal(error);
+    expect(spy.args[0][1]).to.equal(field);
   };
 
-  var later = function() {
-    var self = this, args = arguments;
-    return function(callback) {
-      callback.apply(self, args);
-    };
-  };
-
-  it('should call back with correct results', function(done) {
+  it('should call back with correct results', function() {
     for (var key in greek)
-      next(key, later(null, greek[key]));
-    checkHappy(done);
+      next(key)(null, greek[key]);
+    checkHappy();
   });
 
-  it('should pass the error', function(done) {
+  it('should pass the error', function() {
     // may fail, greek not necessarily in-order, so 'alpha' may not be first
     for (var key in greek)
-      next(key, later(error));
-    checkSad('alpha', done);
+      next(key)(error);
+    checkSad('alpha');
   });
 
-  it('should ignore the data on error', function(done) {
+  it('should ignore the data on error', function() {
     for (var key in greek) {
       if (key === 'eta')
-        next(key, later(error));
+        next(key)(error);
       else
-        next(key, later(null, greek[key]));
+        next(key)(null, greek[key]);
     }
-    checkSad('eta', done);
+    checkSad('eta');
   });
 
-  it('should error when next called after start', function(done) {
+  it('should do nothing with few calls', function() {
     for (var key in greek)
       if (key !== 'eta')
-        next(key, later(null, greek[key]));
+        next(key)(null, greek[key]);
     checkLonely();
-    process.nextTick(function() {
-      expect(function() {
-        next(key, later(null, greek.eta));
-      }).to.throwError();
-      done();
-    });
+  });
+
+  it('should call back once with many calls', function() {
+    var key;
+    for (key in greek)
+      next(key)(null, greek[key]);
+    for (key in greek)
+      next(key)(null, greek[key]);
+    checkHappy();
   });
 });
