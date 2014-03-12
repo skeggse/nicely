@@ -1,7 +1,7 @@
 {
   "name": "nicely",
   "description": "a minimalist asynchronous handler, inspired by _.after from underscore.",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "author": "Eli Skeggs <skeggse@gmail.com>",
   "main": "./index",
   "scripts": {
