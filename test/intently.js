@@ -195,4 +195,21 @@ describe('intently', function() {
       checkHappy();
     });
   });
+
+  describe('abort', function() {
+    it('should abort for certain errors', function() {
+      opts = {
+        abort: function(err) {
+          return 'status' in err;
+        }
+      };
+      var err = new Error('the failure');
+      err.status = 400;
+      run([err]);
+      clock.tick(100);
+      baseCheck(1);
+      expect(spy.args[0][0]).to.equal(err);
+      expect(spy.args[0][1]).to.not.be.ok();
+    });
+  });
 });
