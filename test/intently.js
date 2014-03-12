@@ -46,7 +46,7 @@ describe('intently', function() {
     expect(p).to.equal(passable);
     if (!responses.length)
       throw new Error('out of responses');
-    callback.apply(global, responses.shift());
+    callback.apply(null, responses.shift());
   };
   var _respond = respond;
 
